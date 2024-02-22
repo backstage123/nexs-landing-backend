@@ -1,0 +1,11 @@
+F:\NexS IDP Project\NexS Landing Project\Backend\Domain\Domain\bin\Debug\net6.0\Domain.deps.json
+F:\NexS IDP Project\NexS Landing Project\Backend\Domain\Domain\bin\Debug\net6.0\Domain.dll
+F:\NexS IDP Project\NexS Landing Project\Backend\Domain\Domain\bin\Debug\net6.0\Domain.pdb
+F:\NexS IDP Project\NexS Landing Project\Backend\Domain\Domain\obj\Debug\net6.0\Domain.GeneratedMSBuildEditorConfig.editorconfig
+F:\NexS IDP Project\NexS Landing Project\Backend\Domain\Domain\obj\Debug\net6.0\Domain.AssemblyInfoInputs.cache
+F:\NexS IDP Project\NexS Landing Project\Backend\Domain\Domain\obj\Debug\net6.0\Domain.AssemblyInfo.cs
+F:\NexS IDP Project\NexS Landing Project\Backend\Domain\Domain\obj\Debug\net6.0\Domain.csproj.CoreCompileInputs.cache
+F:\NexS IDP Project\NexS Landing Project\Backend\Domain\Domain\obj\Debug\net6.0\Domain.dll
+F:\NexS IDP Project\NexS Landing Project\Backend\Domain\Domain\obj\Debug\net6.0\refint\Domain.dll
+F:\NexS IDP Project\NexS Landing Project\Backend\Domain\Domain\obj\Debug\net6.0\Domain.pdb
+F:\NexS IDP Project\NexS Landing Project\Backend\Domain\Domain\obj\Debug\net6.0\ref\Domain.dll
