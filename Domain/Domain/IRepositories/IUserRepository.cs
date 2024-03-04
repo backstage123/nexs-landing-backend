@@ -11,7 +11,9 @@ namespace Domain.IRepositories
     {
         Task<bool> InsertAsync(ProviderUserAccount user);
 
-        Task<ProviderUserAccount>? GetByUserName(string userName);
+        Task<List<ProviderUserAccount>> GetAll();
+
+        Task<ProviderUserAccount>? GetByUserNameAsync(string userName);
 
         Task<bool> UpdateAsync(ProviderUserAccount user);
 

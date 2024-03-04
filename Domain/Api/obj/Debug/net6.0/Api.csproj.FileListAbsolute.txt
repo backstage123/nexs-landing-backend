@@ -44,3 +44,5 @@ F:\NexS IDP Project\NexS Landing Project\Backend\Domain\Api\bin\Debug\net6.0\Dom
 F:\NexS IDP Project\NexS Landing Project\Backend\Domain\Api\bin\Debug\net6.0\Persistence.dll
 F:\NexS IDP Project\NexS Landing Project\Backend\Domain\Api\bin\Debug\net6.0\Persistence.pdb
 F:\NexS IDP Project\NexS Landing Project\Backend\Domain\Api\bin\Debug\net6.0\Domain.pdb
+F:\NexS IDP Project\NexS Landing Project\Backend\Domain\Api\bin\Debug\net6.0\Application.dll
+F:\NexS IDP Project\NexS Landing Project\Backend\Domain\Api\bin\Debug\net6.0\Application.pdb

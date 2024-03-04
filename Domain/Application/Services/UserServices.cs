@@ -17,6 +17,22 @@ namespace Application.Services
             _userRepository = userRepository;
         }
 
+        public async Task<List<ProviderUserAccount>> FetchAllAsync()
+        {
+            try
+            {
+                var users = await _userRepository.GetAll();
+                return users;
+            }
+            catch(Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("-----------Exceptions in UserService's CreateAsync Method----------");
+                System.Diagnostics.Debug.WriteLine(ex);
+                System.Diagnostics.Debug.WriteLine("-------------------------------------------------------------------");
+                return null;
+            }
+        }
+
         public async Task<bool> CreateAsync(string username, string providername, string fullname = "", bool isAdmin = false)
         {
             try
@@ -48,6 +64,28 @@ namespace Application.Services
                 System.Diagnostics.Debug.WriteLine("-------------------------------------------------------------------");
                 return false;
             }
-        }           
+        }
+
+        public async Task<bool> RemoveAsync(string username)
+        {
+            try
+            {
+                var user = await _userRepository.GetByUserNameAsync(username);
+                if(user != null)
+                {
+                   var success = await _userRepository.DeleteAsync(user);
+                   return success;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch(Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error: User could not be removed. Probable database exception: {ex.InnerException}");
+                return false;
+            }
+        }
     }
 }

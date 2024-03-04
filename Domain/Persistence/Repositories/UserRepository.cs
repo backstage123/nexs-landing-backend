@@ -1,5 +1,7 @@
 ﻿using Domain.IRepositories;
 using Domain.Users;
+using Microsoft.EntityFrameworkCore;
+using System.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Persistence.Repositories
 {
-    internal class UserRepository : IUserRepository
+    public sealed class UserRepository : IUserRepository
     {
         private readonly ApplicationDbContext _context;
 
@@ -17,14 +19,33 @@ namespace Persistence.Repositories
             _context = context;
         }
 
-        public Task<bool> DeleteAsync(ProviderUserAccount user)
+        public async Task<List<ProviderUserAccount>> GetAll()
         {
-            throw new NotImplementedException();
+            return _context.ProviderUserAccounts.ToList();
         }
 
-        public Task<ProviderUserAccount>? GetByUserName(string userName)
+        public async Task<bool> DeleteAsync(ProviderUserAccount user)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            _context.ProviderUserAccounts?.Remove(user);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<ProviderUserAccount>? GetByUserNameAsync(string username)
+        {
+            //throw new NotImplementedException();
+            //if (!string.IsNullOrEmpty(username))
+            //{
+            //    ProviderUserAccount? user = await _context.ProviderUserAccounts.Where(user => user.UserName == username).FirstOrDefaultAsync();
+            //    return user;
+            //}
+            //else
+            //{
+            //    throw new ArgumentNullException(nameof(username));
+            //}
+            ProviderUserAccount user = await _context.ProviderUserAccounts.Where(user => user.UserName == username).FirstOrDefaultAsync();
+            return user;
         }
 
         public async Task<bool> InsertAsync(ProviderUserAccount user)
