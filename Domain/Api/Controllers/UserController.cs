@@ -18,6 +18,27 @@ namespace Api.Controllers
             _services = services;
         }
 
+        [HttpGet("allusers")]
+        // GET: HomeController
+        public async Task<ActionResult> GetAll()
+        {
+            var users = await _services.FetchAllAsync();
+            //var response = new Response<string>
+            //{
+            //    Success = true,
+            //    Message = null,
+            //    Data = users
+            //};
+            if(users.Any())
+            {
+               return Ok(users);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
         //[HttpGet("/")]
         //// GET: HomeController
         //public ActionResult Index()
@@ -86,23 +107,23 @@ namespace Api.Controllers
                 return BadRequest("Please recheck your request and resubmit.");
                 //return new BadRequestObjectResult(response);
             }
-            catch(DbException e)
-            {
-                ex = e;
-                return StatusCode(500, "An error occurred related to storage. Please try again after some time or contact suppot.");
-            }
-            catch (Exception e)
-            {
-                ex = e;
-                return StatusCode(500, "An error occurred at the server. Please try again after some time or contact suppot.");
-            }
-            finally
-            {
-                if(ex != null)
-                {
-                    System.Diagnostics.Debug.WriteLine($"ex: {ex.InnerException}");
-                }
-            } 
+            //catch(DbException e)
+            //{
+            //    ex = e;
+            //    return StatusCode(500, "An error occurred related to storage. Please try again after some time or contact suppot.");
+            //}
+            //catch (Exception e)
+            //{
+            //    ex = e;
+            //    return StatusCode(500, "An error occurred at the server. Please try again after some time or contact suppot.");
+            //}
+            //finally
+            //{
+            //    if(ex != null)
+            //    {
+            //        System.Diagnostics.Debug.WriteLine($"ex: {ex.InnerException}");
+            //    }
+            //} 
         }
 
         // GET: HomeController/Edit/5
@@ -130,24 +151,35 @@ namespace Api.Controllers
         //[ValidateAntiForgeryToken]
         public async Task<ActionResult> Delete([FromRoute] string username)
         {
-            try
+            //try
+            //{
+            //    //return RedirectToAction(nameof(Index));
+            //    //return NoContent();
+            //    var isUserDeleted = await _services.RemoveAsync(username);
+            //    if (isUserDeleted)
+            //    {
+            //        return NoContent();
+            //    }
+            //    else
+            //    {
+            //        return NotFound();
+            //    }
+
+            //}
+            //catch
+            //{
+            //    //return View();
+            //    return NotFound();
+            //}
+
+            var isUserDeleted = await _services.RemoveAsync(username);
+
+            if (isUserDeleted)
             {
-                //return RedirectToAction(nameof(Index));
-                //return NoContent();
-                var isUserDeleted = await _services.RemoveAsync(username);
-                if (isUserDeleted)
-                {
-                    return NoContent();
-                }
-                else
-                {
-                    return NotFound();
-                }
-                
+                return NoContent();
             }
-            catch
+            else
             {
-                //return View();
                 return NotFound();
             }
         }

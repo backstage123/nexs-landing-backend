@@ -1,3 +1,4 @@
+using Api.Middlewares;
 using Application.Services;
 using Domain.IRepositories;
 using Persistence;
@@ -9,11 +10,21 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddLogging();
+
 builder.Services.AddScoped<UserServices>();
+
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+
 builder.Services.AddDbContext<ApplicationDbContext>();
+
+builder.Services.AddTransient<GlobalExceptionHandlingMiddleware>();
+
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 var app = builder.Build();
@@ -28,6 +39,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
 
 app.MapControllers();
 
