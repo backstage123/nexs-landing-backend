@@ -1,4 +1,4 @@
-﻿using Domain.Users;
+﻿using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,11 +7,13 @@ using System.Threading.Tasks;
 
 namespace Domain.IRepositories
 {
-    public interface IRepository<T>
+    public interface IRepository<T, Tid>
     {
         Task<bool> InsertAsync(T user);
 
-        Task<T>? GetByUserName(string userName);
+        Task<List<T>>? GetAll();
+
+        Task<T>? GetByIdAsync(Tid id);
 
         Task<bool> UpdateAsync(T user);
 

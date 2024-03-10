@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 using static Domain.ValueObjects.ValueObjects;
 
-namespace Domain.Users
+namespace Domain.Entities
 {
     public class NativeUserAccount
     {

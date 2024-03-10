@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Domain.Users;
+using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -35,10 +35,14 @@ namespace Persistence
             //modelBuilder.Entity<NativeUserAccount>().ToTable("native_user_account");
 
             modelBuilder.Entity<ProviderUserAccount>().ToTable("provider_user_account");
+
+            modelBuilder.Entity<Notice>().ToTable("notice");
         }
 
         //public DbSet<NativeUserAccount>? NativeUserAccounts { get; set; }
 
         public DbSet<ProviderUserAccount>? ProviderUserAccounts { get; set; }
+
+        public DbSet<Notice>? Notice { get; set; }
     }
 }

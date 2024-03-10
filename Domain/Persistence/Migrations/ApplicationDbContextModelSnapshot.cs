@@ -22,7 +22,51 @@ namespace Persistence.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Domain.Users.ProviderUserAccount", b =>
+            modelBuilder.Entity("Domain.Entities.Notice", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AuthorName")
+                        .IsRequired()
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("author_name");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasMaxLength(2147483647)
+                        .HasColumnType("text")
+                        .HasColumnName("content");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("created");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("title");
+
+                    b.Property<DateTime>("Updated")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("updated");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuthorName");
+
+                    b.HasIndex("Id")
+                        .IsUnique();
+
+                    b.ToTable("notice", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.ProviderUserAccount", b =>
                 {
                     b.Property<string>("UserName")
                         .HasMaxLength(50)
@@ -30,7 +74,7 @@ namespace Persistence.Migrations
                         .HasColumnName("user_name");
 
                     b.Property<DateTime>("Created")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnName("created");
 
                     b.Property<string>("FullName")
@@ -53,6 +97,15 @@ namespace Persistence.Migrations
                     b.HasKey("UserName");
 
                     b.ToTable("provider_user_account", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.Notice", b =>
+                {
+                    b.HasOne("Domain.Entities.ProviderUserAccount", null)
+                        .WithMany()
+                        .HasForeignKey("AuthorName")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

@@ -1,5 +1,5 @@
 ﻿using Domain.IRepositories;
-using Domain.Users;
+using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
 using System;

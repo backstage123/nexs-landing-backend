@@ -1,5 +1,6 @@
 using Api.Middlewares;
 using Application.Services;
+using Domain.Entities;
 using Domain.IRepositories;
 using Persistence;
 using Persistence.Repositories;
@@ -19,7 +20,11 @@ builder.Services.AddLogging();
 
 builder.Services.AddScoped<UserServices>();
 
+builder.Services.AddScoped<NoticeService>();
+
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+
+builder.Services.AddScoped<IRepository<Notice, int>, NoticeRepository>();
 
 builder.Services.AddDbContext<ApplicationDbContext>();
 
