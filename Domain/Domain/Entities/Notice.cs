@@ -12,11 +12,11 @@ namespace Domain.Entities
 
         public string Title { get; private set; }
 
-        public string Content { get; set; }
+        public string? Content { get; set; }
 
         public DateTime Created { get; private set; }
 
-        public DateTime Updated { get; set; }
+        public DateTime? Updated { get; set; }
 
         public string AuthorName { get; set; }
 
@@ -24,7 +24,7 @@ namespace Domain.Entities
 
         private Notice(string title, string authorname)
         {
-            Title = title;
+            Title = title;         
             AuthorName = authorname;
             Created = DateTime.Now;
             Updated = Created;

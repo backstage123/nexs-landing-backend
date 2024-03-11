@@ -23,11 +23,6 @@ namespace Persistence.Repositories
             return _context.Notice.ToList();
         }
 
-        public Task<bool> DeleteAsync(Notice user)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<Notice>? GetByIdAsync(int id)
         {
             //ProviderUserAccount user = await _context.ProviderUserAccounts.Where(user => user.UserName == username).FirstOrDefaultAsync();
@@ -36,29 +31,29 @@ namespace Persistence.Repositories
             return notice;
         }
 
-        public async Task<bool> InsertAsync(Notice notice)
-        {
-            if (_context != null && notice != null)
-            {
-                _context.Notice?.AddAsync(notice);
-                await _context.SaveChangesAsync();
+        public async Task<int> InsertAsync(Notice notice)
+        {            
+            _context?.Notice?.AddAsync(notice);
+            await _context?.SaveChangesAsync();
 
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return notice.Id;
         }
 
-        public Task<bool> UpdateAsync(Notice user)
+        public async Task<bool> UpdateAsync(Notice notice)
         {
-            throw new NotImplementedException();
+            Notice noticeToUpdate = await _context?.Notice?.Where(n => n.Id == notice.Id).FirstOrDefaultAsync();
+            noticeToUpdate.Content = notice.Content;
+            noticeToUpdate.Updated = DateTime.Now;
+            await _context.SaveChangesAsync(); 
+            return true;
         }
 
-        //public Task<Notice>? GetByIdAsync(int id)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public async Task<bool> DeleteAsync(Notice notice)
+        {
+            //throw new NotImplementedException();
+            _context.Notice?.Remove(notice);
+            await _context.SaveChangesAsync();
+            return true;
+        }
     }
 }

@@ -6,15 +6,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Api.Controllers
 {
-    [Route("api/notice")]
+    [Route("api/notices")]
     [ApiController]
     public class NoticeController : Controller
     {
-        private readonly NoticeService _service;
+        private readonly NoticeService _noticeservice;
 
-        public NoticeController(NoticeService service)
+        public NoticeController(NoticeService noticeservice)
         {
-            _service = service;
+            _noticeservice = noticeservice;
         }
 
         //public IActionResult Index()
@@ -29,23 +29,13 @@ namespace Api.Controllers
             Exception ex = null;
             try
             {
-                var isNoticeCreated = await _service.CreateAsync(request.Title, request.AuthorName);
-                var message = "";
-                if (isNoticeCreated)
-                {
-                    message = "Notice Created Successfully.";
-                }
-                else
-                {
-                    message = "Notice Creation Failed.";
-                }
-                var response = new Response<string>
-                {
-                    Success = isNoticeCreated,
-                    Message = message,
-                    Data = null
-                };
-                return Ok(response);
+                var noticeId = await _noticeservice.CreateAsync(request.Title, request.AuthorName, request.Content);                
+                return Created(new Uri($"/api/notices/{noticeId}", UriKind.Relative), noticeId);
+            }
+            catch (ArgumentNullException e)
+            {
+                ex = e;
+                return BadRequest("One or more necessary field(s) contain(s) null value. Please recheck your request and resubmit.");
             }
             catch (ArgumentException e)
             {
@@ -58,22 +48,54 @@ namespace Api.Controllers
                 ex = e;
                 return BadRequest("Please recheck your request. Hint: Check if the authorName exists. Else contact support.");
             }
+            
         }
 
         [HttpGet("allusers")]
         // GET: HomeController
         public async Task<ActionResult> GetAll()
         {
-            var users = await _service.FetchAllAsync();
+            var notices = await _noticeservice.FindAllAsync();
             //var response = new Response<string>
             //{
             //    Success = true,
             //    Message = null,
             //    Data = users
             //};
-            if (users.Any())
+            if (notices.Any())
             {
-                return Ok(users);
+                return Ok(notices);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
+        [HttpGet("{id}")]
+        // GET: HomeController
+        public async Task<ActionResult> GetById([FromRoute] int id)
+        {
+            var notice = await _noticeservice.FindNoticeAsync(id);
+            if (notice != null)
+            {
+                return Ok(notice);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
+        [HttpDelete("{id}")]
+        //[ValidateAntiForgeryToken]
+        public async Task<ActionResult> Delete([FromRoute] int id)
+        {
+            var isNoticeDeleted = await _noticeservice.RemoveAsync(id);
+
+            if (isNoticeDeleted)
+            {
+                return NoContent();
             }
             else
             {
