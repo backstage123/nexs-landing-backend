@@ -22,14 +22,14 @@ namespace Api.Controllers
         //    return View();
         //}
 
-        [HttpPost("create")]
+        [HttpPost()]
         //[ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(NoticeCreationRequest request)
         {
             Exception ex = null;
             try
             {
-                var noticeId = await _noticeservice.CreateAsync(request.Title, request.AuthorName, request.Content);                
+                var noticeId = await _noticeservice.CreateAsync(request.Title, request.Content, request.AuthorName, request.Publish);                
                 return Created(new Uri($"/api/notices/{noticeId}", UriKind.Relative), noticeId);
             }
             catch (ArgumentNullException e)
@@ -80,6 +80,22 @@ namespace Api.Controllers
             if (notice != null)
             {
                 return Ok(notice);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
+        [HttpPut("{id}")]
+        //[ValidateAntiForgeryToken]
+        public async Task<ActionResult> Put([FromRoute] int id, [FromBody] NoticeUpdateRequest request)
+        {
+            var isUpdated = await _noticeservice.ModifyAsync(id, request.Content, request.AuthorName, request.Publish);
+
+            if (isUpdated)
+            {
+                return Ok("Successfully Updated!");
             }
             else
             {

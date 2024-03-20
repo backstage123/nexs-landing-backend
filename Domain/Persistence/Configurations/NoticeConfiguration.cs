@@ -25,9 +25,9 @@ namespace Persistence.Configurations
 
             builder.Property(n => n.Content).HasColumnName("content").HasMaxLength(int.MaxValue);
 
-            builder.Property(n => n.Created).HasColumnName("created");
+            builder.Property(n => n.Created).HasColumnName("created")/*.HasColumnType("date")*/;
 
-            builder.Property(n => n.Updated).HasColumnName("updated");            
+            builder.Property(n => n.Updated).HasColumnName("updated")/*.HasColumnType("date")*/;            
 
             builder.HasOne<ProviderUserAccount>()
                 .WithMany()

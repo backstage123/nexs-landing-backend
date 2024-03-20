@@ -20,7 +20,8 @@ namespace Persistence.Repositories
 
         public async Task<List<Notice>> GetAll()
         {
-            return _context.Notice.ToList();
+            //return _context.Notice.ToList();
+            return _context.Notice.OrderByDescending(x => x.Updated).ToList();
         }
 
         public async Task<Notice>? GetByIdAsync(int id)

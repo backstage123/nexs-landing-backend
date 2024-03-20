@@ -37,7 +37,6 @@ namespace Persistence.Migrations
                         .HasColumnName("author_name");
 
                     b.Property<string>("Content")
-                        .IsRequired()
                         .HasMaxLength(2147483647)
                         .HasColumnType("text")
                         .HasColumnName("content");
@@ -46,13 +45,16 @@ namespace Persistence.Migrations
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("created");
 
+                    b.Property<bool>("IsPublished")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)")
                         .HasColumnName("title");
 
-                    b.Property<DateTime>("Updated")
+                    b.Property<DateTime?>("Updated")
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("updated");
 

@@ -36,7 +36,7 @@ namespace Application.Services
             return notice;
         }
 
-        public async Task<int> CreateAsync(string title, string authorname, string content)
+        public async Task<int> CreateAsync(string title, string content, string authorname, bool publish)
         {
             //var user = ProviderUserAccount.Create(username, providername);
 
@@ -53,7 +53,7 @@ namespace Application.Services
                     notice.Content = content;
                 }
 
-                //var noticeCreated = await _noticeRepository.InsertAsync(notice);
+                notice.IsPublished = publish;
                 
                 var noticeId = await _noticeRepository.InsertAsync(notice);
 
@@ -82,12 +82,36 @@ namespace Application.Services
             }
         }
 
-        public async Task<bool> ModifyAsync(int id, string content)
+        public async Task<bool> ModifyAsync(int id, string content, string AuthorName, bool publish)
         {
+            //if (string.IsNullOrEmpty(content) && string.IsNullOrEmpty(AuthorName)) return false;
+            
             var notice = await _noticeRepository?.GetByIdAsync(id);
-            notice.Content = content;
-            if(notice != null)
+            
+            //if (!string.IsNullOrEmpty(content))
+            //{
+            //    notice.Content = content;
+            //}
+            //if (!string.IsNullOrEmpty(AuthorName))
+            //{
+            //    notice.AuthorName = AuthorName;
+            //}
+
+            if (notice != null)
             {
+                //if (!string.IsNullOrEmpty(content))
+                //{
+                //    notice.Content = content;
+                //}
+                if (!string.IsNullOrEmpty(AuthorName))
+                {
+                    notice.AuthorName = AuthorName;
+                }
+
+                notice.Content = content;
+
+                notice.IsPublished = publish;
+
                 var success = await _noticeRepository.UpdateAsync(notice);
                 return success;
             }

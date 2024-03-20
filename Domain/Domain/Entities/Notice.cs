@@ -20,14 +20,18 @@ namespace Domain.Entities
 
         public string AuthorName { get; set; }
 
+        public bool IsPublished { get; set; }
+
         private Notice() { }
 
         private Notice(string title, string authorname)
         {
             Title = title;         
             AuthorName = authorname;
+            //Created = DateTime.Now;
             Created = DateTime.Now;
             Updated = Created;
+            //IsPublished = false;
         }
 
         public static Notice Create(string title, string authorname)

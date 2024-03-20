@@ -8,8 +8,10 @@ namespace Application.Requests
 {
     public class NoticeUpdateRequest
     {
-        public int Id { get; set; }
-
         public string Content { get; set; }
+
+        public string AuthorName { get; set; }
+
+        public bool Publish { get; set; }
     }
 }
