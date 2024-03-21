@@ -121,5 +121,41 @@ namespace Application.Services
                 return false;
             }
         }
+
+        public async Task<bool> ModifyAsync(string username, /*string fullname,*/ bool isAdmin)
+        {
+            //if (string.IsNullOrEmpty(content) && string.IsNullOrEmpty(AuthorName)) return false;
+
+            var user = await _userRepository?.GetByUserNameAsync(username);
+
+            //if (!string.IsNullOrEmpty(content))
+            //{
+            //    notice.Content = content;
+            //}
+            //if (!string.IsNullOrEmpty(AuthorName))
+            //{
+            //    notice.AuthorName = AuthorName;
+            //}
+
+            if (user != null)
+            {
+                //if (!string.IsNullOrEmpty(content))
+                //{
+                //    notice.Content = content;
+                //}
+               
+                //user.FullName = fullname;
+
+                user.IsAdmin = isAdmin;
+
+                var success = await _userRepository.UpdateAsync(user);
+                return success;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
     }
 }

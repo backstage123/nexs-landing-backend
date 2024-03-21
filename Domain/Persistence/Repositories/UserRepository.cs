@@ -73,9 +73,13 @@ namespace Persistence.Repositories
             }
         }
 
-        public Task<bool> UpdateAsync(ProviderUserAccount user)
+        public async Task<bool> UpdateAsync(ProviderUserAccount user)
         {
-            throw new NotImplementedException();
+            ProviderUserAccount userToUpdate = await _context?.ProviderUserAccounts?.Where(u => u.UserName == user.UserName).FirstOrDefaultAsync();
+            //userToUpdate.FullName = user.FullName;
+            userToUpdate.IsAdmin = user.IsAdmin;
+            await _context.SaveChangesAsync();
+            return true;
         }
     }
 }

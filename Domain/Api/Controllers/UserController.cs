@@ -11,18 +11,18 @@ namespace Api.Controllers
     [ApiController]
     public class UserController : Controller
     {
-        private readonly UserServices _services;
+        private readonly UserServices _userService;
 
-        public UserController(UserServices services)
+        public UserController(UserServices service)
         {
-            _services = services;
+            _userService = service;
         }
 
         [HttpGet("allusers")]
         // GET: HomeController
         public async Task<ActionResult> GetAll()
         {
-            var users = await _services.FetchAllAsync();
+            var users = await _userService.FetchAllAsync();
             //var response = new Response<string>
             //{
             //    Success = true,
@@ -47,7 +47,7 @@ namespace Api.Controllers
             Exception ex = null;
             try
             {
-                var isUserCreated = await _services.CreateAsync(request.UserName, request.ProviderName);
+                var isUserCreated = await _userService.CreateAsync(request.UserName, request.ProviderName);
                 var message = "";
                 if (isUserCreated)
                 {
@@ -89,11 +89,27 @@ namespace Api.Controllers
             //} 
         }
 
+        [HttpPut("{username}")]
+        //[ValidateAntiForgeryToken]
+        public async Task<ActionResult> Put([FromRoute] string username, [FromBody] UserUpdateRequest request)
+        {
+            var isUpdated = await _userService.ModifyAsync(username, /*request.FullName,*/ request.IsAdmin);
+
+            if (isUpdated)
+            {
+                return Ok("Successfully Updated!");
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
         [HttpDelete("{username}")]
         //[ValidateAntiForgeryToken]
         public async Task<ActionResult> Delete([FromRoute] string username)
         {            
-            var isUserDeleted = await _services.RemoveAsync(username);
+            var isUserDeleted = await _userService.RemoveAsync(username);
 
             if (isUserDeleted)
             {
