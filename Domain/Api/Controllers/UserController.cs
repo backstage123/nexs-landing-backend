@@ -39,15 +39,30 @@ namespace Api.Controllers
             }
         }
 
+        [HttpGet("{username}")]
+        // GET: HomeController
+        public async Task<ActionResult> GetById([FromRoute] string username)
+        {
+            var user = await _userService.FindUserAsync(username);
+            if (user != null)
+            {
+                return Ok(user);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
         // POST: HomeController/Create
-        [HttpPost("create")]
+        [HttpPost()]
         //[ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(UserCreationRequest request)
         { 
             Exception ex = null;
             try
             {
-                var isUserCreated = await _userService.CreateAsync(request.UserName, request.ProviderName);
+                var isUserCreated = await _userService.CreateAsync(request.UserName, request.ProviderName, request.FullName);
                 var message = "";
                 if (isUserCreated)
                 {

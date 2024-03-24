@@ -36,6 +36,12 @@ namespace Application.Services
             return users;
         }
 
+        public async Task<ProviderUserAccount> FindUserAsync(string username)
+        {
+            var user = await _userRepository.GetByUserNameAsync(username);
+            return user;
+        }
+
         public async Task<bool> CreateAsync(string username, string providername, string fullname = "", bool isAdmin = false)
         {
             //try
@@ -74,10 +80,12 @@ namespace Application.Services
             {
                 user.IsAdmin = isAdmin;
 
-                if (string.IsNullOrEmpty(fullname))
-                {
-                    user.FullName = fullname;
-                }
+                //if (string.IsNullOrEmpty(fullname))
+                //{
+                //    user.FullName = fullname;
+                //}
+
+                user.FullName = fullname;
 
                 var userCreated = await _userRepository.InsertAsync(user);
 
