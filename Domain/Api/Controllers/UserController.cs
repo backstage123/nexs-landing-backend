@@ -112,7 +112,7 @@ namespace Api.Controllers
 
             if (isUpdated)
             {
-                return Ok("Successfully Updated!");
+                return Ok();
             }
             else
             {
