@@ -2,12 +2,25 @@ using Api.Middlewares;
 using Application.Services;
 using Domain.Entities;
 using Domain.IRepositories;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.Rewrite;
 using Persistence;
 using Persistence.Repositories;
+using System.Net;
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 var builder = WebApplication.CreateBuilder(args);
+
+//Must be uncommented for deployments
+//builder.WebHost.ConfigureKestrel((context, options) =>96
+//{
+//    options.Listen(IPAddress.Loopback, 5000); // Set your desired port here
+//});
+
+var configuration = builder.Configuration;
+
 
 // Add services to the container.
 
@@ -43,16 +56,34 @@ builder.Services.AddScoped<IRepository<Notice, int>, NoticeRepository>();
 builder.Services.AddDbContext<ApplicationDbContext>();
 
 builder.Services.AddTransient<GlobalExceptionHandlingMiddleware>();
+//builder.Host.UseSystemd().ConfigureWebHostDefaults(webBuilder =>
+//{
+//    webBuilder.UseUrls(new[] { "http://localhost:5000" });
+//});
 
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 var app = builder.Build();
-
+//app.Listen("http://localhost:5000");
 app.UseCors(MyAllowSpecificOrigins);
 
 // Configure the HTTP request pipeline.
+app.UseForwardedHeaders(new ForwardedHeadersOptions
+{
+    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+});
+
 if (app.Environment.IsDevelopment())
 {
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+else if (app.Environment.IsProduction())
+{
+    var option = new RewriteOptions();
+    option.AddRedirect("^$", "swagger/index.html");
+    app.UseRewriter(option);
+
     app.UseSwagger();
     app.UseSwaggerUI();
 }

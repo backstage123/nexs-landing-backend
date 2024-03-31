@@ -21,6 +21,7 @@ namespace Api.Middlewares
                 System.Diagnostics.Debug.Write("-----Inside Middleware-----");
 
                 _logger.LogError(ex, ex.Message);
+                System.Diagnostics.Debug.WriteLine(ex);
 
                 context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
@@ -29,7 +30,7 @@ namespace Api.Middlewares
                     Status = (int)HttpStatusCode.InternalServerError,
                     Type = "Server Error",
                     Title = "Internal Server Error",
-                    Detail = "A server error has occurred. Please try again. Contact the support team if the error persists."
+                    Detail = $"A server error has occurred. Please try again. Contact the support team if the error persists. ex: {ex}"
                 };
 
                 string json = JsonSerializer.Serialize(problem);

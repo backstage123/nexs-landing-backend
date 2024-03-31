@@ -51,7 +51,7 @@ namespace Api.Controllers
             
         }
 
-        [HttpGet("allusers")]
+        [HttpGet()]
         // GET: HomeController
         public async Task<ActionResult> GetAll()
         {

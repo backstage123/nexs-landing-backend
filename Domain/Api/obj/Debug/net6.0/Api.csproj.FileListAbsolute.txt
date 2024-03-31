@@ -46,3 +46,4 @@ F:\NexS IDP Project\NexS Landing Project\Backend\Domain\Api\bin\Debug\net6.0\Per
 F:\NexS IDP Project\NexS Landing Project\Backend\Domain\Api\bin\Debug\net6.0\Domain.pdb
 F:\NexS IDP Project\NexS Landing Project\Backend\Domain\Api\bin\Debug\net6.0\Application.dll
 F:\NexS IDP Project\NexS Landing Project\Backend\Domain\Api\bin\Debug\net6.0\Application.pdb
+F:\NexS IDP Project\NexS Landing Project\Backend\Domain\Api\bin\Debug\net6.0\Microsoft.Extensions.Hosting.Systemd.dll
