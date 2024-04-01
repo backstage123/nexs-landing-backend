@@ -23,10 +23,14 @@ namespace Persistence
             //base.OnConfiguring(optionsBuilder);
             //optionsBuilder.UseNpgsql("Host=localhost; Database=nexs_landing; Port=5433; Username=postgres; Password=1234");
 
-            //System.Diagnostics.Debug.WriteLine(_configuration.GetConnectionString("development"));
-            System.Diagnostics.Debug.WriteLine(_configuration.GetConnectionString("test"));
+            System.Diagnostics.Debug.WriteLine(_configuration.GetConnectionString("development"));
+            //System.Diagnostics.Debug.WriteLine(_configuration.GetConnectionString("test"));
             //optionsBuilder.UseNpgsql(_configuration.GetConnectionString("development"));
-            optionsBuilder.UseNpgsql(_configuration.GetConnectionString("test"));
+            optionsBuilder.UseNpgsql(_configuration.GetConnectionString("development"),builder =>
+            {
+                builder.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null);
+            });
+            base.OnConfiguring(optionsBuilder);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

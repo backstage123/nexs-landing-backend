@@ -14,7 +14,7 @@ var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
 
 //Must be uncommented for deployments
-//builder.WebHost.ConfigureKestrel((context, options) =>96
+//builder.WebHost.ConfigureKestrel((context, options) =>
 //{
 //    options.Listen(IPAddress.Loopback, 5000); // Set your desired port here
 //});
