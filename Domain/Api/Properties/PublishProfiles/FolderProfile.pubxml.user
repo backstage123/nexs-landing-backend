@@ -4,8 +4,8 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 -->
 <Project>
   <PropertyGroup>
-    <_PublishTargetUrl>F:\NexS IDP Project\nexs-landing-publish\test-publish</_PublishTargetUrl>
-    <History>True|2024-03-28T15:59:01.5025555Z;True|2024-03-28T21:48:19.5793228+06:00;True|2024-03-28T20:21:18.6923047+06:00;True|2024-03-28T20:11:28.7397067+06:00;True|2024-03-28T17:15:01.7942864+06:00;True|2024-03-27T16:00:52.4757282+06:00;True|2024-03-27T15:29:26.8493033+06:00;</History>
+    <_PublishTargetUrl>F:\NexS IDP Project\nexs-landing-publish\production-publish</_PublishTargetUrl>
+    <History>True|2024-04-03T06:25:11.0747272Z;True|2024-03-28T21:59:01.5025555+06:00;True|2024-03-28T21:48:19.5793228+06:00;True|2024-03-28T20:21:18.6923047+06:00;True|2024-03-28T20:11:28.7397067+06:00;True|2024-03-28T17:15:01.7942864+06:00;True|2024-03-27T16:00:52.4757282+06:00;True|2024-03-27T15:29:26.8493033+06:00;</History>
     <LastFailureDetails />
   </PropertyGroup>
 </Project>
